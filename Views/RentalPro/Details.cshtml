@@ -1,0 +1,155 @@
+﻿@model Floor.Models.ViewModels.DetailsVM
+
+<div class="container mt-6">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item"><a asp-controller="RentalPro" asp-action="Index">RentalProperties</a></li>
+            <li class="breadcrumb-item active">Details</li>
+        </ol>
+    </nav>
+    <div class="row">
+        <input asp-for="@Model.RentalPro.Id" hidden/>
+        <div class="col-md-6 mt-2 mb-2 p-0">
+            <div class="sidebar-item">
+                <div class="make-me-sticky">
+                    <div class="imgcontainer">
+                        <img src="@WC.ImagePath@Model.RentalPro.Image" class="img-fluid" width="100%" height="400px" alt="House_img" />
+                        <form method="post">
+                            <div class="top-right">
+                                <span>
+                                    @if (Model.ExistsInSave)
+                                    {
+                                        <a asp-action="RemoveFromSave" asp-route-id="@Model.RentalPro.Id" class="btn bg-transparent text-danger"><i class="fas fa-heart fa-2x"></i></a> }
+                                    else
+                                    {
+                                        <button type="submit" asp-route-id="@Model.RentalPro.Id" class="btn bg-transparent text-danger"><i class="far fa-heart fa-2x"></i></button>}
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 cmt">
+            <div class="content-section">
+                <div class="col mt-2">
+                    <p>property Id : @Model.RentalPro.Id</p>
+                    <p>Posted on : @Model.RentalPro.UpdateDt.Date</p>
+                    <hr />
+                    <h5>Rent this @Model.RentalPro.ProCategory.Name at</h5>
+                    <div class="row">
+                        <div class="col-6">
+                            <p>Rent</p>
+                            <span class="display-6"><i class="fas fa-home text-success"></i><b class="h3"> &#8377;@Model.RentalPro.Rent</b></span> / month
+                        </div>
+                        <div class="col-6">
+                            <p>Security Deposit</p>
+                            <small>100% refund </small>
+                            <span class="display-6"><i class="fas fa-shield-alt text-warning"></i><b class="h3"> &#8377;@Model.RentalPro.SecurityDeposit</b></span>
+                        </div>
+                    </div>
+                    <hr />
+                    <p>Location : @Model.RentalPro.State > @Model.RentalPro.City</p>
+                    <h5>@Model.RentalPro.Description</h5>
+                    <p>Only for girls and boys</p>
+                    <hr />
+                </div>
+                <div class="col mt-2 mb-2 ">
+                    <h3>House Features</h3>
+                    <div class="row">
+                        <div class="col-6">
+                            <p>BedRoom</p>
+                            <span class="h3">@Model.RentalPro.BedRoom</span>
+                        </div>
+                        <div class="col-6">
+                            <p>Furnished</p>
+                            <span class="h3">@Model.RentalPro.ProFurnished.Name</span>
+                        </div>
+                        <div class="col-6">
+                            <p>Availability</p>
+                            <span class="h3">@Model.RentalPro.ProAvailability.Name</span>
+                        </div>
+                        <div class="col-6">
+                            <p>Parking</p>
+                            <span class="h3">@Model.RentalPro.ProParking.Name</span>
+                        </div>
+                        <div class="col-6">
+                            <p>HouseAmenities</p>
+                            <span class="h3">@Model.RentalPro.HouseAmenities</span>
+                        </div>
+                        <div class="col-6">
+                            <p>SocietyAmenities</p>
+                            <span class="h3">@Model.RentalPro.SocietyAmenities</span>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="col mt-2 mb-2">
+                    <form method="post">
+                        @if (Model.ExistsInSave)
+                        {
+                            <a asp-action="RemoveFromSave" asp-route-id="@Model.RentalPro.Id" class="btn btn-danger w-100">Remove from save</a> }
+                        else
+                        {
+
+                            <button type="submit" onclick="showAlert()" asp-route-id="@Model.RentalPro.Id" class="btn btn-danger w-100">Save for later</button>}
+                    </form>
+                    @if (User.Identity.Name != Model.RentalPro.PropertyHolderName)
+                    {
+                        @if (Model.Booking == null || User.Identity.Name != Model.Booking.IntrestedPersonName)
+                        {
+                            <button type="button" class="btn btn-info w-100 mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Schedule Visit
+                            </button>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>
+                                                <i class="fas fa-clipboard-check me-2"></i>Your name and your mail-id was shared with property owner
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <a type="submit" class="btn btn-success" asp-controller="Booking" asp-action="Index" asp-route-id="@Model.RentalPro.Id">Confirm</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        
+                        else
+                        {
+                            <a type="button" class="btn btn-success w-100 mt-3" asp-controller="Booking" asp-action="Bookings">
+                                Pending
+                            </a>
+                        }
+                    }
+                </div>
+                <div class="col mt-2 mb-2">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125042.26898803504!2d78.06808496144254!3d11.653894718396915!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3babf1ccf52cba0b%3A0xee9989007068ca47!2sSalem%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1620827074585!5m2!1sen!2sin" width="100%" height="350" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section>
+    <div class="container bg-light">
+        <div class="row mt-5 mb-5 pt-3 pb-3">
+            <div class=" col-12 col-md-8 heading-section">
+                <span class="subheading text-info">Are you a home owner?</span>
+                <h2 class="mb-4">List Your Property</h2>
+                <p>From showing your house to tenants, police verifying them & managing paperwork, we do it all</p>
+            </div>
+            <div class=" col-12 col-md-4 heading-section my-auto text-center">
+                <a asp-controller="RentalPro" asp-action="Upsert" class="btn btn-success">Post your property</a>
+            </div>
+        </div>
+    </div>
+</section>
+

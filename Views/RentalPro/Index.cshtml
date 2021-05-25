@@ -1,0 +1,60 @@
+﻿@model Floor.Models.ViewModels.HomeVM
+
+<div class="container mt-6">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item active">RentalProperties</li>
+        </ol>
+    </nav>
+    <div class="row">
+        <div class="col-md-3 filtercol mt-md-3">
+            <h3 class="tittle">Filter's</h3>
+            <button class="btn  btn-primary filter-button" data-filter="all">All</button>
+            <hr />
+            <h5 class="tittle m-1">Property Type</h5>
+            @foreach (var obj in Model.ProCategories)
+            {
+                <button class="btn m-1 filter-button" data-filter="@obj.Name.Replace(' ','_')">
+                    @obj.Name
+                </button>}
+            <hr />
+            <h5 class="tittle m-1">Availability</h5>
+            @foreach (var obj in Model.ProAvailabilitys)
+            {
+                <button class="btn  m-1 filter-button proa" data-filter="@obj.Name.Replace(' ','_')">
+                    @obj.Name
+                </button>}
+            <hr />
+            <h5 class="tittle m-1">Furnished Status</h5>
+            @foreach (var obj in Model.ProFurnisheds)
+            {
+                <button class="btn  m-1 filter-button prof" data-filter="@obj.Name.Replace(' ','_')">
+                    @obj.Name
+                </button>}
+        </div>
+        <div class="col-sm-12 col-md-9">
+            @foreach (var prod in Model.RentalPros)
+            {
+                <partial name="_IndividualPropertyCard2" model="prod" />}
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>$(document).ready(function () {
+
+            $(".filter-button").click(function () {
+                $(".btn-primary").removeClass("btn-primary");
+                $(this).addClass("btn-primary");
+                var value = $(this).attr('data-filter');
+                if (value == "all") {
+                    $('.filter').show('1000');
+                }
+                else {
+                    $(".filter").not('.' + value).hide('3000');
+                    $('.filter').filter('.' + value).show('3000');
+                }
+            });
+        });</script>
+}

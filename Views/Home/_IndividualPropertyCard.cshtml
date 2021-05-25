@@ -1,0 +1,17 @@
+﻿@model Floor.Models.RentalPro
+
+<div class="col-12 col-sm-6 col-md-4 mb-4">
+    <div class="card w-100">
+        <img src="@WC.ImagePath@Model.Image" class="card-img-top" alt="property-images">
+        <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-area-chart"></i>@Model.SquareFt sq.ft Independent House for rent in @Model.City</h5>
+            <p class="card-text">@Model.Description</p>
+            <div class="d-flex">
+                <a target="_blank" asp-controller="RentalPro" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-primary align-content-center">
+                    Know More  <i class="fas fa-arrow-right"></i>
+                </a>
+                <span class="btn ms-auto">@Model.BedRoom BHK</span>
+            </div>
+        </div>
+    </div>
+</div>

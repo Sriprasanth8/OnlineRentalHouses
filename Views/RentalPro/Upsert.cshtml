@@ -1,0 +1,212 @@
+﻿@model Floor.Models.ViewModels.RentalProVM
+
+@{ var title = "Post"; }
+
+<form method="post" enctype="multipart/form-data">
+    @if (Model.RentalPro.Id != 0)
+    {
+        title = "Edit";
+        <input asp-for="RentalPro.Id" hidden />
+    }
+    <div class=" col-12 heading-section text-center sfi">
+        <div class="mt-5">
+            <span class="subheading text-info">Post</span>
+            <h2 class="mb-4">@title Your Property</h2>
+        </div>
+    </div>
+    <hr />
+    <div class="p-3">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="offset-md-2 col-md-8">
+                <div class="row g-3">
+                    @if (Model.RentalPro.Id != 0)
+                    {
+                        <div class="col-sm-12">
+                            @* Keep this empty *@
+                            <p>Image</p>
+                            <img src="@WC.ImagePath@Model.RentalPro.Image" width="100%" height="300px;" style="border-radius:5px; border:1px solid #bbb" />
+                        </div>}
+                    <div class="col-sm-12">
+                        <label class="form-label" asp-for="RentalPro.ProCategoryId"></label>
+                        <select asp-for="RentalPro.ProCategoryId" asp-items="@Model.ProCategorySelectList" class="form-select">
+                            <option disabled selected>Choose...</option>
+                        </select>
+                        <span class="text-danger text-danger" asp-validation-for="RentalPro.ProCategoryId">
+                        </span>
+                    </div>
+                    <div class="col-sm-6">
+                        <label asp-for="RentalPro.SquareFt" class="form-label"></label>
+                        <input type="text" class="form-control" asp-for="RentalPro.SquareFt" placeholder="" required>
+                        <span class="text-danger" asp-validation-for="RentalPro.SquareFt">
+                        </span>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label asp-for="RentalPro.BedRoom" class="form-label"></label>
+                        <input type="text" class="form-control" asp-for="RentalPro.BedRoom" placeholder="" required>
+                        <span class="text-danger" asp-validation-for="RentalPro.BedRoom">
+                        </span>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <label class="form-label" asp-for="RentalPro.ProFurnishedId"></label>
+                        <select asp-for="RentalPro.ProFurnishedId" asp-items="@Model.ProFurnishedSelectList" class="form-select">
+                            <option disabled selected>Choose...</option>
+                        </select>
+                        <span class="text-danger text-danger" asp-validation-for="RentalPro.ProFurnishedId">
+                        </span>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <label class="form-label" asp-for="RentalPro.ProParkingId"></label>
+                        <select asp-for="RentalPro.ProParkingId" asp-items="@Model.ProParkingSelectList" class="form-select">
+                            <option disabled selected>Choose...</option>
+                        </select>
+                        <span class="text-danger text-danger" asp-validation-for="RentalPro.ProParkingId">
+                        </span>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <label class="form-label" asp-for="RentalPro.ProAvailabilityId"></label>
+                        <select asp-for="RentalPro.ProAvailabilityId" asp-items="@Model.ProAvailabilitySelectList" class="form-select">
+                            <option disabled selected>Choose...</option>
+                        </select>
+                        <span class="text-danger text-danger" asp-validation-for="RentalPro.ProAvailabilityId">
+                        </span>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label asp-for="RentalPro.HouseAmenities" class="form-label"></label>
+                        <input type="text" class="form-control" asp-for="RentalPro.HouseAmenities" placeholder="" required>
+                        <span class="text-danger" asp-validation-for="RentalPro.HouseAmenities">
+                        </span>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label asp-for="RentalPro.SocietyAmenities" class="form-label"></label>
+                        <input type="text" class="form-control" asp-for="RentalPro.SocietyAmenities" placeholder="" required>
+                        <span class="text-danger" asp-validation-for="RentalPro.SocietyAmenities">
+                        </span>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <p>Choose your image</p>
+                        <input type="file" name="files" id="uploadBox" multiple class="form-control" />
+                    </div>
+
+                    <div class="col-sm-12">
+                        <label asp-for="RentalPro.Description"></label>
+                        <textarea asp-for="RentalPro.Description" class="form-control" required></textarea>
+                        <span class="text-danger" asp-validation-for="RentalPro.Description"></span>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label asp-for="RentalPro.Rent" class="form-label"></label>
+                        <input type="text" class="form-control" asp-for="RentalPro.Rent" placeholder="" required>
+                        <span class="text-danger" asp-validation-for="RentalPro.Rent">
+                        </span>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label asp-for="RentalPro.SecurityDeposit" class="form-label"></label>
+                        <input type="text" class="form-control" asp-for="RentalPro.SecurityDeposit" placeholder="" required>
+                        <span class="text-danger" asp-validation-for="RentalPro.SecurityDeposit">
+                        </span>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <label class="form-label" asp-for="RentalPro.ProRentalWOId"></label>
+                        <select asp-for="RentalPro.ProRentalWOId" asp-items="@Model.ProRentalWOSelectList" class="form-select">
+                            <option disabled selected>Choose...</option>
+                        </select>
+                        <span class="text-danger text-danger" asp-validation-for="RentalPro.ProRentalWOId">
+                        </span>
+                    </div>
+                    <div class="col-sm-12">
+                        <label asp-for="RentalPro.Address" class="form-label"></label>
+                        <input type="text" class="form-control" asp-for="RentalPro.Address" placeholder="" required>
+                        <span class="text-danger" asp-validation-for="RentalPro.Address">
+                        </span>
+                    </div>
+                    <div class="col-sm-6">
+                        <label asp-for="RentalPro.City" class="form-label"></label>
+                        <input type="text" class="form-control" asp-for="RentalPro.City" placeholder="" required>
+                        <span class="text-danger" asp-validation-for="RentalPro.City">
+                        </span>
+                    </div>
+                    <div class="col-sm-6">
+                        <label asp-for="RentalPro.State" class="form-label"></label>
+                        <input type="text" class="form-control" asp-for="RentalPro.State" placeholder="" required>
+                        <span class="text-danger" asp-validation-for="RentalPro.State">
+                        </span>
+                    </div>
+                </div>
+                <hr />
+                @if (Model.RentalPro.Id == 0)
+                {
+                    <div class="form-check form-switch">
+                        <input class="form-check-input pl-3" type="checkbox" id="flexSwitchCheckDefault">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">Accept terms & conditions</label>
+                    </div>
+
+                    <button type="button" class="btn mt-1 mb-2 p-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Know More <i class="fas fa-angle-double-right"></i>
+                    </button>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Term's and Condition's</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>
+                                        A privacy policy is a statement or legal document (in privacy law) that discloses some or all of the ways a party gathers, uses, discloses, and manages a customer or client's data.
+                                        Personal information can be anything that can be used to identify an individual, not limited to the person's name, address, date of birth, marital status, contact information,
+                                        ID issue, and expiry date, financial records, credit information, medical history, where one travels, and intentions to acquire goods and services.
+                                        In the case of a business, it is often a statement that declares a party's policy on how it collects, stores, and releases personal information it collects.
+                                        It informs the client what specific information is collected, and whether it is kept confidential, shared with partners, or sold to other firms or enterprises.
+                                        Privacy policies typically represent a broader, more generalized treatment, as opposed to data use statements, which tend to be more detailed and specific.
+                                    </p>
+                                    <p>
+                                        The exact contents of a certain privacy policy will depend upon the applicable law and may need to address requirements across geographical boundaries and legal jurisdictions.
+                                        Most countries have their own legislation and guidelines of who is covered, what information can be collected, and what it can be used for. In general,
+                                        data protection laws in Europe cover the private sector, as well as the public sector. Their privacy laws apply not only to government operations but also to private enterprises and commercial transactions.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="row">
+                    <div class="col-6">
+                        @if (Model.RentalPro.Id != 0)
+                        {
+                            //update
+                            <input type="submit" class="btn btn-info w-100" value="Update" /> }
+                        else
+                        {
+                            //create
+                            <input type="submit" onclick="return validateInput()" class="btn btn-primary w-100" value="Create" />}
+                    </div>
+                    <div class="col-6">
+                        @if (User.IsInRole(WC.AdminRole))
+                        {
+                            <a asp-action="Index" class="btn btn-success w-100">Back</a> }
+                        else
+                        {
+                            <a asp-controller="YourPost" asp-action="Index" class="btn btn-warning w-100">Back</a>}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+
+    @{
+    <partial name="_ValidationScriptsPartial" />
+    }
+}
