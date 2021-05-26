@@ -80,7 +80,7 @@ namespace Floor.Controllers
             {
                 return NotFound();
             }
-            book.Status = "Accept";
+            book.Status = "Accepted";
             _db.Booking.Update(book);
             _db.SaveChanges();
             return RedirectToAction("Index", "YourPost");

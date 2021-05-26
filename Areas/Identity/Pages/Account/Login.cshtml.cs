@@ -85,6 +85,7 @@ namespace Floor.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    TempData[WC.Success] = "Welcome back!";
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
